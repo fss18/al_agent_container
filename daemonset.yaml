@@ -1,0 +1,37 @@
+apiVersion: extensions/v1beta1
+kind: DaemonSet
+metadata:
+  labels:
+    app: al-agent
+  name: al-agent-daemon-set-1
+spec:
+  template:
+    metadata:
+      labels:
+        app: al-agent-vol
+    spec:
+      hostNetwork: true
+      containers:    
+        - name: al-agent-vol
+          image: wellysiauw/al_agent_standard:2.5.1
+          args:
+            - "start"
+            - $(ALERTLOGIC_KEY)
+          env:
+            - name: ALERTLOGIC_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: al-agent-reg-key
+                  key: reg-key
+          stdin: True
+          volumeMounts:
+            - mountPath: /var/alertlogic/etc
+              name: alertlogic-key
+          securityContext:
+            capabilities:
+             add:
+               - NET_ADMIN
+      volumes:
+        - name: alertlogic-key
+          hostPath:
+            path: /var/alertlogic/etc
