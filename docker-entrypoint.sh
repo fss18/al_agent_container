@@ -2,8 +2,13 @@
 
 file="/var/alertlogic/etc/host_crt.pem"
 ACTION=$1
-HOST=$2
-ALERTLOGIC_KEY=$3
+if [ "$2" == "-" ]
+then
+  HOST=$3
+else
+  ALERTLOGIC_KEY=$2
+  HOST=$3
+fi
 
 case "$ACTION" in
 'start')

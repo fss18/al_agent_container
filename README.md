@@ -2,13 +2,13 @@ Alert Logic AL Agent in Container (stand alone)
 ================
 WARNING: this is non official container for Alert Logic AL Agent, use with caution.
 There is no official support from Alert Logic for this Dockerfile.
-Please contact author for further question 
+Please contact author for further question
 
 Requirements
 ------------
 1. Docker daemon
 2. Account with Alert Logic
-3. Unique registration key 
+3. Unique registration key
 
 Supported Platform
 ================
@@ -26,11 +26,11 @@ Sample Usage in Kubernetes
 * Look for the sample YAML file for how to use it as daemon set
 * WARNING: This deployment model will have limitation on traffic inspection from/to the Pods
 
-Sample Usage in Standalone Docker 
+Sample Usage in Standalone Docker
 ================
 
-* I don't recommend running this on standalone Docker daemon, unless if you set "--network=host" to allow the AL Agent to inspect the host network traffic
-* Sample command: `docker run -d --network=host -t wellysiauw/al_agent_standard:latest "UNIQUE REG KEY" "start"
+* Set "--network=host" to allow the AL Agent to inspect the host network traffic
+* Sample command: `docker run -d --network=host -t wellysiauw/al_agent_standard:latest "start" "UNIQUE REG KEY"
 
 
 Arguments
@@ -39,14 +39,21 @@ Arguments
 ``ACTION``
 ----------
 
-* Select either 'start' , 'configure' or 'provision'. 
+* Select either 'start' , 'configure' or 'provision'.
 * For normal operation, use 'start'
 
 
 ``ALERTLOGIC_KEY``
 ----------
 
-This is the unique registration key that is required to register AL Agent. 
+This is the unique registration key that is required to register AL Agent.
+If you want to force auto-claim, set ALERTLOGIC_KEY to "-".
+
+
+``HOST``
+----------
+
+Set to IP address or DNS name of the Threat Manager if you like to use it as single point of egress.
 
 
 License and Authors
@@ -54,5 +61,5 @@ License and Authors
 License:
 Distributed under the Apache 2.0 license.
 
-Authors: 
+Authors:
 Welly Siauw (welly.siauw@alertlogic.com)
